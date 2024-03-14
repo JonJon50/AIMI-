@@ -2,7 +2,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
-    // Dart SASS compilation
     "dart-sass": {
       dist: {
         files: {
@@ -10,20 +9,18 @@ module.exports = function (grunt) {
         },
       },
     },
-    
-    // Task to copy HTML
+
     copy: {
       html: {
         src: "src/index.html",
         dest: "dist/index.html",
       },
     },
-    
-    // Watch for changes
+
     watch: {
       sass: {
         files: ["src/scss/**/*.scss"],
-        tasks: ["dart-sass", "copy:html"], // Added copying HTML task here
+        tasks: ["dart-sass", "copy:html"],
       },
       js: {
         files: ["src/js/**/*.js"],
@@ -35,7 +32,6 @@ module.exports = function (grunt) {
       },
     },
 
-    // JS minification
     uglify: {
       my_target: {
         files: {
@@ -43,18 +39,17 @@ module.exports = function (grunt) {
         },
       },
     },
-    
-    // Connect: Serve files
+
     connect: {
       server: {
         options: {
           port: 5500,
-          base: 'dist', // Change this to your build directory
+          base: "dist",
           livereload: true,
           middleware: function (connect, options, middlewares) {
             middlewares.unshift(function (req, res, next) {
-              if (req.url.endsWith('.css')) {
-                res.setHeader('Content-Type', 'text/css');
+              if (req.url.endsWith(".css")) {
+                res.setHeader("Content-Type", "text/css");
               }
               return next();
             });
@@ -65,16 +60,12 @@ module.exports = function (grunt) {
     },
   });
 
-  // Load the plugins
   grunt.loadNpmTasks("grunt-dart-sass");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-connect");
 
-  // Default task(s)
   grunt.registerTask("default", ["dart-sass", "uglify", "copy", "watch"]);
   grunt.registerTask("serve", ["connect", "watch"]);
 };
-
-

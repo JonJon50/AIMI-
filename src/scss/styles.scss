@@ -1,44 +1,44 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+$border-color-unchecked: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.2);
+
 .image-checkbox {
   display: block;
   position: relative;
-  
   .image-box {
     width: 100%;
     height: 0;
-    padding-top: 100%; // This maintains a 1:1 aspect ratio
+    padding-top: 100%;
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    border: 4px solid transparent; // Adjust as needed
+    border: 4px solid $border-color-unchecked;
+    box-shadow: 0 4px 8px $shadow-color;
+    transition: box-shadow 0.3s ease;
   }
-  
-  // Styles for the checkbox
   input[type="checkbox"] {
     position: absolute;
-    top: 10px; // Position from the top edge
-    left: 10px; // Position from the left edge
-    z-index: 10; // Ensure it's above the image
-    -webkit-appearance: none; // Removes default styling on Safari and Chrome
-    -moz-appearance: none; // Removes default styling on Firefox
-    appearance: none; // Removes default styling on other browsers
-    width: 20px; // Width of the checkbox
-    height: 20px; // Height of the checkbox
-    border: 2px solid #fa0505; // Red border color
-    background: transparent; // Transparent background
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fa0505;
+    background: transparent;
     cursor: pointer;
 
     &:checked {
-      // Remove the background-image property or set it to none
-      background-image: none; // This will remove the checkmark
-      border-color: #fa0505; // Keep the red border when checked
+      background-image: none;
+      border-color: #fa0505;
+    }
+
+    &:checked + .image-box {
+      border-color: #fa0505;
+      box-shadow: none;
     }
   }
-
-  // When the image box is clicked and the checkbox is checked
-  input[type="checkbox"]:checked + .image-box {
-    border-color: #fa0505; // Red border color around the image box
-  }
 }
-
