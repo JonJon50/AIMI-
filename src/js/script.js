@@ -1,17 +1,15 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const images = document.querySelectorAll('.image-box');
-
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const image = entry.target;
-                image.style.backgroundImage = `url(${image.dataset.src})`;
-                observer.unobserve(image);
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.backgroundImage = `url(${entry.target.getAttribute('data-bg')})`;
+          observer.unobserve(entry.target);
+        }
+      });
     });
-
-    images.forEach(image => {
-        imageObserver.observe(image);
+  
+    document.querySelectorAll('.image-box').forEach(box => {
+      observer.observe(box);
     });
-});
+  });
+  
